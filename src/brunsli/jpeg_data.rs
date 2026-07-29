@@ -54,7 +54,7 @@ pub(crate) const K_JPEG_ZIG_ZAG_ORDER: [u32; 64] = [
   35, 36, 48, 49, 57, 58, 62, 63
 ];
 
-enum JPEGReadError {
+pub(crate) enum JPEGReadError {
   Ok,
   SoiNotFound,
   SofNotFound,
@@ -100,11 +100,11 @@ enum JPEGReadError {
   InvalidQuantTblPrecision,
 }
 
-struct JPEGQuantTable {
-    values : [i32; K_DCT_BLOCK_SIZE],
-    precision : i32,
-    index : i32,
-    is_last : bool,
+pub(crate) struct JPEGQuantTable {
+    pub(crate) values : [i32; K_DCT_BLOCK_SIZE],
+    pub(crate) precision : i32,
+    pub(crate) index : i32,
+    pub(crate) is_last : bool,
 }
 
 impl Default for JPEGQuantTable {
@@ -118,11 +118,11 @@ impl Default for JPEGQuantTable {
     }
 }
 
-struct JPEGHuffmanCode {
-    counts : [i32; K_JPEG_HUFFMAN_MAX_BIT_LENGTH + 1],
-    values : [i32; K_JPEG_HUFFMAN_ALPHABET_SIZE + 1],
-    slot_id : i32,
-    is_last : bool,
+pub(crate) struct JPEGHuffmanCode {
+    pub(crate) counts : [i32; K_JPEG_HUFFMAN_MAX_BIT_LENGTH + 1],
+    pub(crate) values : [i32; K_JPEG_HUFFMAN_ALPHABET_SIZE + 1],
+    pub(crate) slot_id : i32,
+    pub(crate) is_last : bool,
 }
 
 impl Default for JPEGHuffmanCode {
@@ -137,41 +137,41 @@ impl Default for JPEGHuffmanCode {
 }
 
 #[derive(Default)]
-struct JPEGComponentScanInfo {
-    comp_idx : u8,
-    dc_tbl_idx : i32,
-    ac_tbl_idx : i32,
+pub(crate) struct JPEGComponentScanInfo {
+    pub(crate) comp_idx : u8,
+    pub(crate) dc_tbl_idx : i32,
+    pub(crate) ac_tbl_idx : i32,
 }
 
 #[derive(Default)]
-struct ExtraZeroRunInfo {
-    block_idx : i32,
-    num_extra_zero_runs : i32,
+pub(crate) struct ExtraZeroRunInfo {
+    pub(crate) block_idx : i32,
+    pub(crate) num_extra_zero_runs : i32,
 }
 
 #[derive(Default)]
-struct JPEGScanInfo {
-    ss : i32,
-    se : i32,
-    ah : i32,
-    al : i32,
-    num_components : usize,
-    components : [JPEGComponentScanInfo; 4],
-    reset_points : Vec<i32>,
-    extra_zero_runs : Vec<ExtraZeroRunInfo>,
+pub(crate) struct JPEGScanInfo {
+    pub(crate) ss : i32,
+    pub(crate) se : i32,
+    pub(crate) ah : i32,
+    pub(crate) al : i32,
+    pub(crate) num_components : usize,
+    pub(crate) components : [JPEGComponentScanInfo; 4],
+    pub(crate) reset_points : Vec<i32>,
+    pub(crate) extra_zero_runs : Vec<ExtraZeroRunInfo>,
 }
 
 type Coeff = i16;
 
-struct JPEGComponent {
-    id : i32,
-    h_samp_factor : i32,
-    v_samp_factor : i32,
-    quant_idx : u8,
-    width_in_blocks : u32,
-    height_in_blocks : u32,
-    num_blocks : u32,
-    coeffs : Vec<Coeff>,
+pub(crate) struct JPEGComponent {
+    pub(crate) id : i32,
+    pub(crate) h_samp_factor : i32,
+    pub(crate) v_samp_factor : i32,
+    pub(crate) quant_idx : u8,
+    pub(crate) width_in_blocks : u32,
+    pub(crate) height_in_blocks : u32,
+    pub(crate) num_blocks : u32,
+    pub(crate) coeffs : Vec<Coeff>,
 }
 
 impl Default for JPEGComponent {
@@ -189,28 +189,28 @@ impl Default for JPEGComponent {
     }
 }
 
-struct JPEGData {
-    width: i32,
-    height: i32,
-    version: i32,
-    max_h_samp_factor: i32,
-    max_v_samp_factor: i32,
-    mcu_rows: i32,
-    mcu_cols: i32,
-    restart_interval: i32,
-    app_data: Vec<Vec<u8>>,
-    com_data: Vec<Vec<u8>>,
-    quant: Vec<JPEGQuantTable>,
-    huffman_code: Vec<JPEGHuffmanCode>,
-    components: Vec<JPEGComponent>,
-    scan_info: Vec<JPEGScanInfo>,
-    marker_order: Vec<u8>,
-    inter_marker_data: Vec<Vec<u8>>,
-    tail_data: Vec<u8>,
-    original_jpg: Option<Vec<u8>>,
-    error: JPEGReadError,
-    has_zero_padding_bit: bool,
-    padding_bits: Vec<i32>,
+pub(crate) struct JPEGData {
+    pub(crate) width: i32,
+    pub(crate) height: i32,
+    pub(crate) version: i32,
+    pub(crate) max_h_samp_factor: i32,
+    pub(crate) max_v_samp_factor: i32,
+    pub(crate) mcu_rows: i32,
+    pub(crate) mcu_cols: i32,
+    pub(crate) restart_interval: i32,
+    pub(crate) app_data: Vec<Vec<u8>>,
+    pub(crate) com_data: Vec<Vec<u8>>,
+    pub(crate) quant: Vec<JPEGQuantTable>,
+    pub(crate) huffman_code: Vec<JPEGHuffmanCode>,
+    pub(crate) components: Vec<JPEGComponent>,
+    pub(crate) scan_info: Vec<JPEGScanInfo>,
+    pub(crate) marker_order: Vec<u8>,
+    pub(crate) inter_marker_data: Vec<Vec<u8>>,
+    pub(crate) tail_data: Vec<u8>,
+    pub(crate) original_jpg: Option<Vec<u8>>,
+    pub(crate) error: JPEGReadError,
+    pub(crate) has_zero_padding_bit: bool,
+    pub(crate) padding_bits: Vec<i32>,
 }
 
 impl Default for JPEGData {
