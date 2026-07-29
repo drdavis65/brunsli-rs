@@ -1,0 +1,3 @@
+[submodule "brunsli"]
+	path = brunsli
+	url = ./brunsli
