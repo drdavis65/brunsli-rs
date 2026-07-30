@@ -163,6 +163,7 @@ pub(crate) struct JPEGScanInfo {
 
 type Coeff = i16;
 
+#[derive(Clone)]
 pub(crate) struct JPEGComponent {
     pub(crate) id : i32,
     pub(crate) h_samp_factor : i32,
